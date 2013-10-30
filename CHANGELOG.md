@@ -1,6 +1,9 @@
 # ChangeLog #
 
-## 2.0.0 - July 26, 2013
+## 2.1.0 - Oct 29, 2013
+* Made token instances of nodes with standard node operations.
+
+## 2.0.0 - Oct 2, 2013
 * Added methods for serializing and unserializing an AST.
 * Changed node definition to have two types, `children` for actual child nodes and
   `attributes` for properties of the node that at not themselves nodes.
