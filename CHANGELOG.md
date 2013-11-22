@@ -1,5 +1,9 @@
 # ChangeLog #
 
+## 2.2.0  - November 21, 2013
+* Added position.
+* Added nodes for object literal values.
+
 ## 2.1.0 - Oct 29, 2013
 * Made token instances of nodes with standard node operations.
 
