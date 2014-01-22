@@ -1,15 +1,17 @@
 {
   "name": "ecma-ast",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "ECMAScript AST Nodes",
-  "main": "",
+  "author": "Matt Bierner",
+  "license": "MIT"
   "repository": {
     "type": "git",
     "url": "git@github.com:mattbierner/ecma-ast.git"
   },
   "keywords": [
-    'ecmascript'
+    "ecmascript",
+    "ast"
   ],
-  "author": "Matt Bierner",
-  "license": "MIT"
+  
+  "main": "index.js"
 }
