@@ -1,24 +1,29 @@
 /**
  * @fileOverview Node serialization
  */
-define(['exports',
-        'ecma_ast/node'],
-function(exports,
-        ecma_node){
-//"use strict";
+package (
+// Internal
+    registerNode
+
+// Public
+    serialize
+    unserialize)
+with
+    import './node' ecma_node#{Node}
+in {
 
 var keys = Object.keys;
-    
+
 var map = Function.prototype.call.bind(Array.prototype.map);
 var reduce = Function.prototype.call.bind(Array.prototype.reduce);
 
-var id = function(x) { return x; };
+var id = \x -> x;
 
 /* Internal
  ******************************************************************************/
 var typeMap = {};
 
-var registerNode = function(type, ctor) {
+registerNode = \type, ctor -> {
     typeMap[type] = ctor;
 };
 
@@ -31,33 +36,33 @@ var registerNode = function(type, ctor) {
  * @param [locSerializer] Function that serializes location data.
  * @param [udSerializer] Function that serializes user data objects.
  */
-var serialize = (function(){
-    var _serialize = function(node, locSerializer, udSerializer) {
+serialize = let
+    _serialize = \(node, locSerializer, udSerializer) -> {
         if (!node)
             return node;
         
         if (Array.isArray(node))
-            return map(node, function(x) { return _serialize(x, locSerializer, udSerializer); });
+            return map(node, \x -> _serialize(x, locSerializer, udSerializer));
         
-        if (!(node instanceof ecma_node.Node))
+        if (!(node instanceof Node))
             return node;
         
         return {
             'type': node.type,
             'loc': locSerializer(node.loc),
             'ud': udSerializer(node.ud),
-            'children': reduce(node.children, function(o, childKey) {
+            'children': reduce(node.children, \(o, childKey) -> {
                 o[childKey] = _serialize(node[childKey], locSerializer, udSerializer);
                 return o;
             }, {}),
-            'attributes': reduce(node.attributes, function(o, key) {
+            'attributes': reduce(node.attributes, \(o, key) -> {
                 o[key] = node[key];
                 return o;
             }, {})
-        }
-    };
-    
-    return function(node, locSerializer, udSerializer) {
+        };
+    }
+in
+    \(node, locSerializer, udSerializer) -> {
         var program = _serialize(
             node,
             locSerializer || id,
@@ -68,7 +73,6 @@ var serialize = (function(){
             'program': program
         };
     };
-}());
 
 /**
  * Unserialize a data to an AST.
@@ -77,13 +81,13 @@ var serialize = (function(){
  * @param [locSerializer] Function that unserializes location data.
  * @param [udSerializer] Function that unserializes user data objects.
  */
-var unserialize = (function(){
-    var _unserialize = function(data, locUnserializer, udUnserializer) {
+unserialize = let
+    _unserialize = \data, locUnserializer, udUnserializer -> {
         if (!data)
             return data;
         
         if (Array.isArray(data))
-            return map(data, function(x) { return _unserialize(x, locUnserializer, udUnserializer); });
+            return map(data, \x -> _unserialize(x, locUnserializer, udUnserializer));
         
         var ctor = typeMap[data.type];
         if (!ctor)
@@ -94,14 +98,14 @@ var unserialize = (function(){
         
         var children = reduce(
             keys(data.children),
-            function(o, c) {
+            \(o, c) -> {
                 o[c] = _unserialize(data.children[c], locUnserializer, udUnserializer);
                 return o;
             }, {});
         
         var attributes = reduce(
             keys(data.attributes),
-            function(o, c) {
+            \(o, c) -> {
                 o[c] = data.attributes[c];
                 return o;
             }, {});
@@ -112,23 +116,12 @@ var unserialize = (function(){
             ud,
             children,
             attributes);
-    };
-    
-    return function(data, locSerializer, udSerializer) {
-        return _unserialize(
+    }
+in
+    \data, locSerializer, udSerializer ->
+        _unserialize(
             data.program,
             locSerializer || id,
             udSerializer || id);
-    };
-}());
 
-
-/* Export
- ******************************************************************************/
-// Internal
-exports.registerNode = registerNode;
-
-// Public
-exports.serialize = serialize;
-exports.unserialize = unserialize;
-});
+}

@@ -1,0 +1,76 @@
+/**
+ */
+package (
+    Identifier
+    Literal
+    
+    ObjectValue
+    ObjectGetter
+    ObjectSetter)
+with
+    import './node' {Node defineNode}
+in {
+
+/* 
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+Identifier = defineNode(Node, 'Identifier',
+    [],
+    ['name'],
+    function\(loc, name) =self-> {
+        Node.call(self, loc);
+        self.name = name;
+    });
+
+/**
+ * @constructor
+ */
+Literal = defineNode(Node, 'Literal',
+    [],
+    ['kind', 'value'],
+    function\(loc, kind, value) =self-> {
+        Node.call(self, loc);
+        self.kind = kind;
+        self.value = value;
+    });
+
+/**
+ * @constructor
+ */
+ObjectValue = defineNode(Node, 'ObjectValue',
+    ['key', 'value'],
+    [],
+    function\(loc, key, value) =self-> {
+        Node.call(self, key, value);
+        self.key = key;
+        self.value = value;
+    });
+
+/**
+ * @constructor
+ */
+ObjectGetter = defineNode(Node, 'ObjectGetter',
+    ['key', 'value'],
+    [],
+    function\(loc, key, value) =self-> {
+        Node.call(self, key, value);
+        self.key = key;
+        self.value = value;
+    });
+
+/**
+ * @constructor
+ */
+ObjectSetter = defineNode(Node, 'ObjectSetter',
+    ['key', 'value'],
+    [],
+    function\(loc, key, value) =self-> {
+        Node.call(self, key, value);
+        self.key = key;
+        self.value = value;
+    });
+
+
+}

@@ -1,0 +1,148 @@
+/**
+ * @fileOverview ECMAScript 5.1 lex tokens.
+ */
+package (
+    Token
+    
+    StringToken
+    NumberToken
+    RegularExpressionToken
+    BooleanToken
+    NullToken
+    
+    IdentifierToken
+    KeywordToken
+    PunctuatorToken
+    
+    CommentToken
+    WhitespaceToken
+    LineTerminatorToken)
+with
+    import './node' {Node defineNode}
+in {
+
+/**
+ * @constructor
+ */
+Token = function\(loc, value) =self-> {
+    Node.call(self, loc);
+    self.value = value;
+};
+Token.prototype = new Node;
+
+/* Instances
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+StringToken = defineNode(Token, 'String',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+NumberToken = defineNode(Token, 'Number',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+RegularExpressionToken = defineNode(Token, 'RegularExpression',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+BooleanToken = defineNode(Token, 'Boolean',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+NullToken = defineNode(Token, 'Null',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * 
+ */
+IdentifierToken = defineNode(Token, 'Identifier',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+KeywordToken = defineNode(Token, 'Keyword',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * 
+ */
+PunctuatorToken = defineNode(Token, 'Punctuator',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+CommentToken = defineNode(Token, 'Comment',
+    [],
+    ['value', 'multiline', 'linebreak'],
+    function\(loc, value, multiline, linebreak) =self-> {
+        Token.call(self, loc, value);
+        self.multiline = !!multiline;
+        self.linebreak = !!linebreak;
+    });
+
+/**
+ * @constructor
+ */
+WhitespaceToken = defineNode(Token, 'Whitespace',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+/**
+ * @constructor
+ */
+LineTerminatorToken = defineNode(Token, 'LineTerminator',
+    [],
+    ['value'],
+    function\(loc, value) =self-> {
+        Token.call(self, loc, value);
+    });
+
+
+}

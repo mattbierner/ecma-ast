@@ -1,0 +1,206 @@
+/**
+ * @fileOverview AST expression Nodes for ECMAScript 5.1 based on the
+ *   SpiderMonkey Parser API.
+ */
+package (
+    Expression
+    
+    ThisExpression
+    SequenceExpression
+    UnaryExpression
+    BinaryExpression
+    AssignmentExpression
+    UpdateExpression
+    LogicalExpression
+    ConditionalExpression
+    NewExpression
+    CallExpression
+    MemberExpression
+    
+    FunctionExpression
+    ArrayExpression
+    ObjectExpression)
+with
+    import './node' {Node defineNode}
+in {
+
+
+/**
+ * @constructor
+ */
+Expression = function\() =self-> { };
+Expression.prototype = new Node;
+
+/* Instances
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+ThisExpression = defineNode(Expression, 'ThisExpression',
+    [],
+    [],
+    function\(loc) =self-> {
+        Node.call(self, loc);
+    });
+
+/**
+ * @constructor
+ */
+SequenceExpression = defineNode(Expression, 'SequenceExpression',
+    ['expressions'],
+    [],
+    function\(loc, expressions) =self-> {
+        Node.call(self, loc);
+        self.expressions = expressions;
+    });
+
+/**
+ * @constructor
+ */
+UnaryExpression = defineNode(Expression, 'UnaryExpression',
+    ['argument'],
+    ['operator'],
+    function\(loc, operator, argument) =self-> {
+        Node.call(self, loc);
+        self.operator = operator;
+        self.argument = argument;
+    });
+
+/**
+ * @constructor
+ */
+BinaryExpression = defineNode(Expression, 'BinaryExpression',
+    ['left', 'right'],
+    ['operator'],
+    function\(loc, operator, left, right) =self-> {
+        Node.call(self, loc);
+        self.operator = operator;
+        self.left = left;
+        self.right = right;
+    });
+
+/**
+ * @constructor
+ */
+AssignmentExpression = defineNode(Expression, 'AssignmentExpression',
+    ['left', 'right'],
+    ['operator'],
+    function\(loc, operator, left, right) =self-> {
+        Node.call(self, loc);
+        self.operator = operator;
+        self.left = left;
+        self.right = right;
+    });
+
+/**
+ * @constructor
+ */
+UpdateExpression = defineNode(Expression, 'UpdateExpression',
+    ['argument'],
+    ['operator', 'prefix'],
+    function\(loc, operator, argument, prefix) =self-> {
+        Node.call(self, loc);
+        self.operator = operator;
+        self.argument = argument;
+        self.prefix = prefix;
+    });
+
+/**
+ * @constructor
+ */
+LogicalExpression = defineNode(Expression, 'LogicalExpression',
+    ['left', 'right'],
+    ['operator'],
+    function\(loc, operator, left, right) =self-> {
+        Node.call(self, loc);
+        self.operator = operator;
+        self.left = left;
+        self.right = right;
+    });
+
+/**
+ * @constructor
+ */
+ConditionalExpression = defineNode(Expression, 'ConditionalExpression',
+    ['test', 'consequent', 'alternate'],
+    [],
+    function\(loc, test, consequent, alternate) =self-> {
+        Node.call(self, loc);
+        self.test = test;
+        self.consequent = consequent;
+        self.alternate = alternate;
+    });
+
+/**
+ * @constructor
+ */
+NewExpression = defineNode(Expression, 'NewExpression',
+    ['callee', 'args'],
+    [],
+    function\(loc, callee, args) =self-> {
+        Node.call(self, loc);
+        self.callee = callee;
+        self.args = args;
+    });
+
+/**
+ * @constructor
+ */
+CallExpression = defineNode(Expression, 'CallExpression',
+    ['callee', 'args'],
+    [],
+    function\(loc, callee, args) =self-> {
+        Node.call(self, loc);
+        self.callee = callee;
+        self.args = args;
+    });
+
+/**
+ * @constructor
+ */
+MemberExpression = defineNode(Expression, 'MemberExpression',
+    ['object', 'property'],
+    ['computed'],
+    function\(loc, object, property, computed) =self-> {
+        Node.call(self, loc);
+        self.object = object;
+        self.property = property;
+        self.computed = computed;
+    });
+
+/**
+ * @constructor
+ */
+FunctionExpression = defineNode(Expression, 'FunctionExpression',
+    ['id', 'params', 'body'],
+    [],
+    function\(loc, id, params, body) =self-> {
+        Node.call(self, loc);
+        self.id = (id || null);
+        self.params = params;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+ArrayExpression = defineNode(Expression, 'ArrayExpression',
+    ['elements'],
+    [],
+    function\(loc, elements) =self-> {
+        Node.call(self, loc);
+        self.elements = elements;
+    });
+
+/**
+ * @constructor
+ */
+ObjectExpression = defineNode(Expression, 'ObjectExpression',
+    ['properties'],
+    [],
+    function\(loc, properties) =self-> {
+        Node.call(self, loc);
+        self.properties = properties;
+    });
+
+}

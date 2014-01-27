@@ -1,0 +1,59 @@
+/**
+ * @fileOverview ECMASscript declaration AST nodes.
+ */
+package (
+    Declaration
+    
+    FunctionDeclaration
+    
+    VariableDeclaration
+    VariableDeclarator)
+with
+    import './node' {Node defineNode}
+in {
+
+/**
+ * @constructor
+ */
+Declaration = function\() -> { };
+Declaration.prototype = new Node;
+
+/* Instances
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+FunctionDeclaration = defineNode(Declaration, 'FunctionDeclaration',
+    ['params', 'body'],
+    [],
+    function\(loc, id, params, body) =self-> {
+        Node.call(self, loc);
+        self.id = id;
+        self.params = params;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+VariableDeclaration = defineNode(Declaration, 'VariableDeclaration',
+    ['declarations'],
+    [],
+    function\(loc, declarations) =self-> {
+        Node.call(self, loc);
+        self.declarations = declarations;
+    });
+
+/**
+ * VariableDeclarator
+ */
+VariableDeclarator = defineNode(Declaration, 'VariableDeclarator',
+    ['id', 'init'],
+    [],
+    function\(loc, id, init) =self-> {
+        Node.call(self, loc);
+        self.id = id;
+        self.init = (init || null);
+    });
+
+}

@@ -1,0 +1,21 @@
+/**
+ * @fileOverview ECMAScript program AST nodes.
+ */
+package (
+    Program)
+with
+    import './node' {Node defineNode}
+in {
+
+/**
+ * @constructor
+ */
+Program = defineNode(Node, 'Program',
+    ['body'],
+    [],
+    function\(loc, body) =self-> {
+        Node.call(self, loc);
+        self.body = body;
+    });
+
+}

@@ -1,0 +1,238 @@
+/**
+ * @fileOverview AST statement nodes for ECMAScript 5.1 based on the
+ * SpiderMonkey Parser API.
+ */
+package (
+    Statement
+        
+    DebuggerStatement
+    BlockStatement
+    ExpressionStatement
+    EmptyStatement
+    IfStatement
+    LabeledStatement
+    BreakStatement
+    ContinueStatement
+    WithStatement
+    SwitchStatement
+    ReturnStatement
+    
+    ThrowStatement
+    TryStatement
+        
+    WhileStatement
+    DoWhileStatement
+    ForStatement
+    ForInStatement)
+with
+    import './node' {Node defineNode}
+in {
+
+/**
+ * @constructor
+ */
+Statement = function\() =self-> { };
+Statement.prototype = new Node;
+
+/* Instances
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+EmptyStatement = defineNode(Statement, "EmptyStatement",
+    [],
+    [],
+    function\(loc) =self-> {
+        Node.call(self, loc);
+    });
+
+/**
+ * @constructor
+ */
+DebuggerStatement = defineNode(Statement, "DebuggerStatement",
+    [],
+    [],
+    function\(loc) =self-> {
+        Node.call(self, loc);
+    });
+
+/**
+ * @constructor
+ */
+BlockStatement = defineNode(Statement, "BlockStatement",
+    ['body'],
+    [],
+    function\(loc, body) =self-> {
+        Node.call(self, loc);
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+ExpressionStatement =  defineNode(Statement, "ExpressionStatement",
+    ['expression'],
+    [],
+    function\(loc, expression) =self-> {
+        Node.call(self, loc);
+        self.expression = expression;
+    });
+
+/**
+ * @constructor
+ */
+IfStatement = defineNode(Statement, "IfStatement",
+    ['test', 'consequent', 'alternate'],
+    [],
+    function\(loc, test, consequent, alternate) =self-> {
+        Node.call(self, loc);
+        self.test = test;
+        self.consequent = consequent;
+        self.alternate = (alternate || null);
+    });
+
+/**
+ * @constructor
+ */
+LabeledStatement = defineNode(Statement, "LabeledStatement",
+    ['body'],
+    [],
+    function\(loc, label, body) =self-> {
+        Node.call(self, loc);
+        self.label = label;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+BreakStatement = defineNode(Statement, "BreakStatement",
+    ['label'],
+    [],
+    function\(loc, label) =self-> {
+        Node.call(self, loc);
+        self.label = (label || null);
+    });
+
+/**
+ * @constructor
+ */
+ContinueStatement = defineNode(Statement, "ContinueStatement",
+    ['label'],
+    [],
+    function\(loc, label) =self-> {
+        Node.call(self, loc);
+        self.label = (label || null);
+    });
+
+/**
+ * @constructor
+ */
+WithStatement = defineNode(Statement, "WithStatement",
+    ['object', 'body'],
+    [],
+    function\(loc, object, body) =self-> {
+        Node.call(self, loc);
+        self.object = object;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+SwitchStatement = defineNode(Statement, "SwitchStatement",
+    ['discriminant', 'cases'],
+    [],
+    function\(loc, discriminant, cases) =self-> {
+        Node.call(self, loc);
+        self.discriminant = discriminant;
+        self.cases = cases;
+    });
+
+/**
+ * @constructor
+ */
+ReturnStatement = defineNode(Statement, "ReturnStatement",
+    ['argument'],
+    [],
+    function\(loc, argument) =self-> {
+        Node.call(self, loc);
+        self.argument = (argument || null);
+    });
+
+/**
+ * @constructor
+ */
+ThrowStatement = defineNode(Statement, "ThrowStatement",
+    ['argument'],
+    [],
+    function\(loc, argument) =self-> {
+        Node.call(self, loc);
+        self.argument = argument;
+    });
+
+/**
+ * @constructor
+ */
+TryStatement = defineNode(Statement, "TryStatement",
+    ['block', 'handler', 'finalizer'],
+    [],
+    function\(loc, block, handler, finalizer) =self-> {
+        Node.call(self, loc);
+        self.block = block;
+        self.handler = handler;
+        self.finalizer = finalizer;
+    });
+
+/**
+ * @constructor
+ */
+WhileStatement = defineNode(Statement, "WhileStatement",
+    ['test', 'body'],
+    [],
+    function\(loc, test, body) =self-> {
+        Node.call(self, loc);
+        self.test = test;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+DoWhileStatement = defineNode(Statement, "DoWhileStatement",
+    ['body', 'test'],
+    [],
+    function\(loc, body, test) =self-> {
+        Node.call(self, loc);
+        self.test = test;
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+ForStatement = defineNode(Statement, "ForStatement",
+    ['init', 'test', 'update', 'body'],
+    [],
+    function\(loc, init, test, update, body) =self-> {
+        Node.call(self, loc);
+        self.init = (init || null);
+        self.test = (test || null);
+        self.update = (update || null);
+        self.body = body;
+    });
+
+/**
+ * @constructor
+ */
+ForInStatement = defineNode(Statement, "ForInStatement",
+    ['left', 'right', 'body'],
+    [],
+    function\(loc, left, right, body) =self-> {
+        Node.call(self, loc);
+        self.left = left;
+        self.right = right;
+        self.body = body;
+    });
+
+}

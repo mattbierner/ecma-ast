@@ -1,33 +1,44 @@
 /**
  * @fileOverview Node serialization
  */
-define(['require', 'exports', 'ecma_ast/serialization'],
-function(require, exports){
-//"use strict";
-
-var concatArgs = (function(){
-    var map = function(x) { return x; };
+package (
+    Node
     
-    return function(arr, args) {
-        return arr.concat([].map.call(args, map));
-    };
-}());
+    construct
+    reconstruct
+    modify
+    setLoc
+    setUserData
+    
+    getData
+    modifyData
+    setData
+    
+    defineNode)
+with
+    import './serialization' {registerNode}
+in {
+
+var concatArgs = let id = \x -> x in
+    \arr, args ->
+        arr.concat([].map.call(args, id));
 
 var keys = Object.keys;
     
 var map = Function.prototype.call.bind(Array.prototype.map);
 var reduce = Function.prototype.call.bind(Array.prototype.reduce);
 
-var copy = function(obj) {
-    var out = new (Object.getPrototypeOf(obj).constructor)();
-    for (var i in obj)
+var copy = \obj -> {
+    var out = Object.create(Object.getPrototypeOf(obj));
+    Object.getOwnPropertyNames(obj).forEach(\i =self-> {
         out[i] = obj[i];
+    });
     return out;
 };
 
-var defineProperty = function(obj, prop, descriptor) {
-    return Object.defineProperty(copy(obj), prop, descriptor);
-};
+
+var defineProperty = \obj, prop, descriptor ->
+    Object.defineProperty(copy(obj), prop, descriptor);
 
 /* Node
  ******************************************************************************/
@@ -37,8 +48,8 @@ var defineProperty = function(obj, prop, descriptor) {
  * @param loc Location.
  * @param ud UserData
  */
-var Node = function(loc, ud) {
-    Object.defineProperties(this, {
+Node = function\loc ud =self-> {
+    Object.defineProperties(self, {
         'loc': {
             'value': loc,
             'enumerable': false
@@ -65,11 +76,11 @@ var Node = function(loc, ud) {
  * 
  * @return New node.
  */
-var construct = function(proto, loc, ud, children, attributes) {
+construct = function\(proto, loc, ud, children, attributes) -> {
     var properties = {};
     
     // Copy explicit children
-    Object.keys(children).forEach(function(key) {
+    Object.keys(children).forEach(function\(key) -> {
         properties[key] = {
             'value': children[key],
             'enumerable': true,
@@ -78,7 +89,7 @@ var construct = function(proto, loc, ud, children, attributes) {
     });
     
     // Null remaining children
-    proto.children.forEach(function(key) {
+    proto.children.forEach(function\(key) -> {
         properties[key] = (properties[key] || {
             'value': null,
             'enumerable': true,
@@ -86,7 +97,7 @@ var construct = function(proto, loc, ud, children, attributes) {
         });
     });
     
-    Object.keys(attributes).forEach(function(key) {
+    Object.keys(attributes).forEach(function\(key) -> {
         properties[key] = {
             'value': attributes[key],
             'enumerable': true,
@@ -118,14 +129,13 @@ var construct = function(proto, loc, ud, children, attributes) {
  * 
  * @return Reconstructed node.
  */
-var reconstruct = function(base, children, attributes) {
-    return construct(
+reconstruct = \base, children, attributes -> 
+    construct(
         Object.getPrototypeOf(base),
         base.loc,
         base.ud,
         children,
         attributes);
-};
 
 /**
  * Create a new node from a base with children and attributes included from
@@ -140,23 +150,25 @@ var reconstruct = function(base, children, attributes) {
  * 
  * @return Modified node.
  */
-var modify = function(base, children, attributes) {
+modify = \base, children, attributes -> {
     var allChildren = {},
         allAttributes = {};
     
-    base.children.forEach(function(key) {
+    base.children.forEach(function\(key) -> {
         allChildren[key] = base[key];
     });
-    Object.keys(children).forEach(function(key) {
-        allChildren[key] = children[key];
-    });
+    if (children)
+        Object.keys(children).forEach(function\(key) -> {
+            allChildren[key] = children[key];
+        });
     
-    base.attributes.forEach(function(key) {
+    base.attributes.forEach(function\(key) -> {
         allAttributes[key] = base[key];
     });
-    Object.keys(attributes).forEach(function(key) {
-        allAttributes[key] = attributes[key];
-    });
+    if (attributes)
+        Object.keys(attributes).forEach(function\(key) -> {
+            allAttributes[key] = attributes[key];
+        });
     
     return reconstruct(
         base,
@@ -172,13 +184,13 @@ var modify = function(base, children, attributes) {
  * 
  * @return Transformed node.
  */
-var setLoc = function(base, loc) {
+setLoc = function\(base, loc) -> {
     return construct(
         Object.getPrototypeOf(base),
         loc,
         base.ud,
-        reduce(base.children, function(o, key) { o[key] = base[key]; return o; }, {}),
-        reduce(base.attributes, function(o, key) { o[key] = base[key]; return o; }, {}));
+        reduce(base.children, function\(o, key) -> { o[key] = base[key]; return o; }, {}),
+        reduce(base.attributes, function\(o, key) -> { o[key] = base[key]; return o; }, {}));
 };
 
 /**
@@ -189,14 +201,13 @@ var setLoc = function(base, loc) {
  * 
  * @return Transformed node.
  */
-var setUserData = function(base, ud) {
-    return construct(
+setUserData = \base ud ->
+    construct(
         Object.getPrototypeOf(base),
         base.loc,
         ud,
-        reduce(base.children, function(o, key) { o[key] = base[key]; return o; }, {}),
-        reduce(base.attributes, function(o, key) { o[key] = base[key]; return o; }, {}));
-};
+        reduce(base.children, function\(o, key) -> { o[key] = base[key]; return o; }, {}),
+        reduce(base.attributes, function\(o, key) -> { o[key] = base[key]; return o; }, {}));
 
 /* User Data
  ******************************************************************************/
@@ -208,11 +219,10 @@ var setUserData = function(base, ud) {
  * 
  * @return Value or null if none.
  */
-var getData = function(node, key) {
-    return (node.ud ?
-        node.ud[key] :
-        null);
-};
+getData = \node, key ->
+    ?node.ud
+        :node.ud[key]
+        :null;
 
 /**
  * Modifies a user data entry.
@@ -223,8 +233,8 @@ var getData = function(node, key) {
  * 
  * @return Transformed node.
  */
-var modifyData = function(node, key, f) {
-    return setUserdata(
+modifyData = \node, key, f ->
+    setUserData(
         node,
         defineProperty(
             (node.ud || {}),
@@ -232,7 +242,6 @@ var modifyData = function(node, key, f) {
                 'value': f(getData(node, key)),
                 'enumerable': true
             }));
-};
 
 /**
  * Set a user data entry.
@@ -243,42 +252,25 @@ var modifyData = function(node, key, f) {
  * 
  * @return Transformed node.
  */
-var setData = function(node, key, value) {
-    return modifyData(node, key, function() { return value; });
-};
+setData = \node, key, value -> 
+    modifyData(node, key, \() -> value);
 
 /* Creation
  ******************************************************************************/
-var defineNode = function(parent, type, children, attributes, ctor) {
+defineNode = function\(parent, type, children, attributes, ctor) -> {
     ctor.type = type;
     ctor.prototype = new parent;
     ctor.prototype.constructor = ctor;
     ctor.prototype.children = children;
     ctor.prototype.attributes = attributes;
     ctor.prototype.type = ctor.type;
-    ctor.create = function(/*...*/) {
-        return new (ctor.bind.apply(ctor, concatArgs([null], arguments)));
+    ctor.create = function\args(...) -> {
+        return new (ctor.bind.apply(ctor, concatArgs([null], args)));
     };
     
-    require('ecma_ast/serialization').registerNode(type, ctor);
+    require('./serialization').registerNode(type, ctor);
     return ctor;
 };
 
 
-/* Export
- ******************************************************************************/
-exports.Node = Node;
-
-exports.construct = construct;
-exports.reconstruct = reconstruct;
-exports.modify = modify;
-exports.setLoc = setLoc;
-exports.setUserData = setUserData;
-
-exports.getData = getData;
-exports.modifyData = modifyData;
-exports.setData = setData;
-
-exports.defineNode = defineNode;
-
-});
+}

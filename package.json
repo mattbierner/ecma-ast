@@ -1,6 +1,6 @@
 {
   "name": "ecma-ast",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "ECMAScript AST Nodes",
   "author": "Matt Bierner",
   "license": "MIT",
@@ -13,5 +13,12 @@
     "ast"
   ],
   
-  "main": "index.js"
+  "main": "index.js",
+    "directories": {
+        "lib": "dist_node/"
+    },
+    "files": [
+        "dist_node/",
+        "lib/"
+    ],
 }

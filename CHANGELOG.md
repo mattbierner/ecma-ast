@@ -1,4 +1,7 @@
-# ChangeLog #
+# ChangeLog
+
+## 2.4.0 - January 26, 2014
+* Added node package.
 
 ## 2.2.0  - November 21, 2013
 * Added position.

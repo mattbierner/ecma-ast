@@ -1,0 +1,43 @@
+/**
+ * @fileOverview ECMAScript clause AST nodes.
+ */
+package (
+    SwitchCase
+    CatchClause)
+with
+    import './node' {Node defineNode}
+in {
+
+/**
+ * @constructor
+ */
+var Clause = function\() -> { };
+Clause.prototype = new Node;
+
+/* Instances
+ ******************************************************************************/
+/**
+ * @constructor
+ */
+SwitchCase = defineNode(Clause, 'SwitchCase',
+    ['test', 'consequent'],
+    [],
+    function\(loc, test, consequent) =self-> {
+        Node.call(self, loc);
+        self.test = (test || null);
+        self.consequent = consequent;
+    });
+
+/**
+ * @constructor
+ */
+CatchClause = defineNode(Clause, 'CatchClause',
+    ['param', 'body'],
+    [],
+    function\(loc, param, body) =self-> {
+        Node.call(self, loc);
+        self.param = param;
+        self.body = body;
+    });
+
+}
