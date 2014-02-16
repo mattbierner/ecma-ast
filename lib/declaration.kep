@@ -24,7 +24,7 @@ Declaration.prototype = new Node;
  * @constructor
  */
 FunctionDeclaration = defineNode(Declaration, 'FunctionDeclaration',
-    ['params', 'body'],
+    ['id', 'params', 'body'],
     [],
     function\(loc, id, params, body) =self-> {
         Node.call(self, loc);

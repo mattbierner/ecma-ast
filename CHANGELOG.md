@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2.4.2 - Feb 16, 2014
+* Fixed `FuncitonDeclaration` not having an `id` child metadata.
+
 ## 2.4.0 - January 26, 2014
 * Added node package.
 
