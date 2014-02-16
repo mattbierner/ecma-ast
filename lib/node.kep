@@ -155,7 +155,7 @@ modify = \base, children, attributes -> {
         allAttributes = {};
     
     base.children.forEach(\key -> {
-        allChildren.(key) = base[key];
+        allChildren.(key) = base.(key);
     });
     if (children)
         Object.keys(children).forEach(\key -> {
