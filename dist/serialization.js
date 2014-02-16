@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/serialization.kep'
+ * DO NOT EDIT
+*/
 define(["require", "exports", "./node"], (function(require, exports, ecma_node) {
     "use strict";
     var Node = ecma_node["Node"],
@@ -12,11 +16,11 @@ define(["require", "exports", "./node"], (function(require, exports, ecma_node) 
         (typeMap[type] = ctor);
     }));
     var _serialize = (function(node, locSerializer, udSerializer) {
-        if (!node) return node;
+        if ((!node)) return node;
         if (Array.isArray(node)) return map(node, (function(x) {
             return _serialize(x, locSerializer, udSerializer);
         }));
-        if (!(node instanceof Node)) return node;
+        if ((!(node instanceof Node))) return node;
         return ({
             "type": node.type,
             "loc": locSerializer(node.loc),
@@ -40,12 +44,12 @@ define(["require", "exports", "./node"], (function(require, exports, ecma_node) 
         });
     }));
     var _unserialize = (function(data, locUnserializer, udUnserializer) {
-        if (!data) return data;
+        if ((!data)) return data;
         if (Array.isArray(data)) return map(data, (function(x) {
             return _unserialize(x, locUnserializer, udUnserializer);
         }));
-        var ctor = typeMap[data.type];
-        if (!ctor) return data;
+        var ctor = typeMap([data.type]);
+        if ((!ctor)) return data;
         var loc = locUnserializer(data.loc),
             ud = udUnserializer(data.ud),
             children = reduce(keys(data.children), (function(o, c) {

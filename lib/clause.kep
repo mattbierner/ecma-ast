@@ -12,7 +12,7 @@ in {
  * @constructor
  */
 var Clause = function\() -> { };
-Clause.prototype = new Node;
+Clause.prototype = new Node();
 
 /* Instances
  ******************************************************************************/

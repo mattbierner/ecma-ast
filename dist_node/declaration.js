@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/declaration.kep'
+ * DO NOT EDIT
+*/
 "use strict";
 var __o = require("./node"),
     Node = __o["Node"],
@@ -5,8 +9,8 @@ var __o = require("./node"),
     Declaration, FunctionDeclaration, VariableDeclaration, VariableDeclarator;
 (Declaration = (function() {}));
 (Declaration.prototype = new(Node)());
-(FunctionDeclaration = defineNode(Declaration, "FunctionDeclaration", ["params", "body"], [], (function(loc, id, params,
-    body) {
+(FunctionDeclaration = defineNode(Declaration, "FunctionDeclaration", ["id", "params", "body"], [], (function(loc, id,
+    params, body) {
     var self = this;
     Node.call(self, loc);
     (self.id = id);

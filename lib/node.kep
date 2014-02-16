@@ -31,7 +31,7 @@ var reduce = Function.prototype.call.bind(Array.prototype.reduce);
 var copy = \obj -> {
     var out = Object.create(Object.getPrototypeOf(obj));
     Object.getOwnPropertyNames(obj).forEach(\i =self-> {
-        out[i] = obj[i];
+        out.(i) = obj.(i);
     });
     return out;
 };
@@ -81,8 +81,8 @@ construct = function\(proto, loc, ud, children, attributes) -> {
     
     // Copy explicit children
     Object.keys(children).forEach(function\(key) -> {
-        properties[key] = {
-            'value': children[key],
+        properties.(key) = {
+            'value': children.(key),
             'enumerable': true,
             'configurable': true
         };
@@ -90,7 +90,7 @@ construct = function\(proto, loc, ud, children, attributes) -> {
     
     // Null remaining children
     proto.children.forEach(function\(key) -> {
-        properties[key] = (properties[key] || {
+        properties.(key) = (properties.(key) || {
             'value': null,
             'enumerable': true,
             'configurable': true
@@ -98,8 +98,8 @@ construct = function\(proto, loc, ud, children, attributes) -> {
     });
     
     Object.keys(attributes).forEach(function\(key) -> {
-        properties[key] = {
-            'value': attributes[key],
+        properties.(key) = {
+            'value': attributes.(key),
             'enumerable': true,
             'configurable': true
         };
@@ -154,20 +154,20 @@ modify = \base, children, attributes -> {
     var allChildren = {},
         allAttributes = {};
     
-    base.children.forEach(function\(key) -> {
-        allChildren[key] = base[key];
+    base.children.forEach(\key -> {
+        allChildren.(key) = base[key];
     });
     if (children)
-        Object.keys(children).forEach(function\(key) -> {
-            allChildren[key] = children[key];
+        Object.keys(children).forEach(\key -> {
+            allChildren.(key) = children.(key);
         });
     
-    base.attributes.forEach(function\(key) -> {
-        allAttributes[key] = base[key];
+    base.attributes.forEach(\key -> {
+        allAttributes.(key) = base.(key);
     });
     if (attributes)
-        Object.keys(attributes).forEach(function\(key) -> {
-            allAttributes[key] = attributes[key];
+        Object.keys(attributes).forEach(\key -> {
+            allAttributes.(key) = attributes.(key);
         });
     
     return reconstruct(
@@ -184,14 +184,14 @@ modify = \base, children, attributes -> {
  * 
  * @return Transformed node.
  */
-setLoc = function\(base, loc) -> {
-    return construct(
+setLoc = function\(base, loc) ->
+    construct(
         Object.getPrototypeOf(base),
         loc,
         base.ud,
-        reduce(base.children, function\(o, key) -> { o[key] = base[key]; return o; }, {}),
-        reduce(base.attributes, function\(o, key) -> { o[key] = base[key]; return o; }, {}));
-};
+        reduce(base.children, \o, key -> { o.(key) = base.(key); return o; }, {}),
+        reduce(base.attributes, \o, key -> { o.(key) = base.(key); return o; }, {}));
+
 
 /**
  * Set the user data of a node.
@@ -206,8 +206,8 @@ setUserData = \base ud ->
         Object.getPrototypeOf(base),
         base.loc,
         ud,
-        reduce(base.children, function\(o, key) -> { o[key] = base[key]; return o; }, {}),
-        reduce(base.attributes, function\(o, key) -> { o[key] = base[key]; return o; }, {}));
+        reduce(base.children, \o, key -> { o.(key) = base.(key); return o; }, {}),
+        reduce(base.attributes, \o, key -> { o.(key) = base.(key); return o; }, {}));
 
 /* User Data
  ******************************************************************************/
@@ -221,7 +221,7 @@ setUserData = \base ud ->
  */
 getData = \node, key ->
     ?node.ud
-        :node.ud[key]
+        :node.ud.(key)
         :null;
 
 /**
@@ -259,13 +259,13 @@ setData = \node, key, value ->
  ******************************************************************************/
 defineNode = function\(parent, type, children, attributes, ctor) -> {
     ctor.type = type;
-    ctor.prototype = new parent;
+    ctor.prototype = new parent();
     ctor.prototype.constructor = ctor;
     ctor.prototype.children = children;
     ctor.prototype.attributes = attributes;
     ctor.prototype.type = ctor.type;
     ctor.create = function\args(...) -> {
-        return new (ctor.bind.apply(ctor, concatArgs([null], args)));
+        return new (ctor.bind.apply(ctor, concatArgs([null], args)))();
     };
     
     require('./serialization').registerNode(type, ctor);

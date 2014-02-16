@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/statement.kep'
+ * DO NOT EDIT
+*/
 "use strict";
 var __o = require("./node"),
     Node = __o["Node"],

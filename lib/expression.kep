@@ -29,7 +29,7 @@ in {
  * @constructor
  */
 Expression = function\() =self-> { };
-Expression.prototype = new Node;
+Expression.prototype = new Node();
 
 /* Instances
  ******************************************************************************/

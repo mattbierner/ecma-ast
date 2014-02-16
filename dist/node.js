@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/node.kep'
+ * DO NOT EDIT
+*/
 define(["require", "exports", "./serialization"], (function(require, exports, __o) {
     "use strict";
     var registerNode = __o["registerNode"],
@@ -80,7 +84,7 @@ define(["require", "exports", "./serialization"], (function(require, exports, __
         var allChildren = ({}),
             allAttributes = ({});
         base.children.forEach((function(key) {
-            (allChildren[key] = base[key]);
+            (allChildren[key] = base([key]));
         }));
         if (children) Object.keys(children)
             .forEach((function(key) {

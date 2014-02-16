@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/declaration.kep'
+ * DO NOT EDIT
+*/
 define(["require", "exports", "./node"], (function(require, exports, __o) {
     "use strict";
     var Node = __o["Node"],
@@ -5,14 +9,14 @@ define(["require", "exports", "./node"], (function(require, exports, __o) {
         Declaration, FunctionDeclaration, VariableDeclaration, VariableDeclarator;
     (Declaration = (function() {}));
     (Declaration.prototype = new(Node)());
-    (FunctionDeclaration = defineNode(Declaration, "FunctionDeclaration", ["params", "body"], [], (function(loc,
-        id, params, body) {
-        var self = this;
-        Node.call(self, loc);
-        (self.id = id);
-        (self.params = params);
-        (self.body = body);
-    })));
+    (FunctionDeclaration = defineNode(Declaration, "FunctionDeclaration", ["id", "params", "body"], [], (
+        function(loc, id, params, body) {
+            var self = this;
+            Node.call(self, loc);
+            (self.id = id);
+            (self.params = params);
+            (self.body = body);
+        })));
     (VariableDeclaration = defineNode(Declaration, "VariableDeclaration", ["declarations"], [], (function(loc,
         declarations) {
         var self = this;

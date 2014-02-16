@@ -1,3 +1,7 @@
+/*
+ * THIS FILE IS AUTO GENERATED from 'lib/token.kep'
+ * DO NOT EDIT
+*/
 define(["require", "exports", "./node"], (function(require, exports, __o) {
     "use strict";
     var Node = __o["Node"],
@@ -46,8 +50,8 @@ define(["require", "exports", "./node"], (function(require, exports, __o) {
         multiline, linebreak) {
         var self = this;
         Token.call(self, loc, value);
-        (self.multiline = !!multiline);
-        (self.linebreak = !!linebreak);
+        (self.multiline = (!(!multiline)));
+        (self.linebreak = (!(!linebreak)));
     })));
     (WhitespaceToken = defineNode(Token, "Whitespace", [], ["value"], (function(loc, value) {
         var self = this;

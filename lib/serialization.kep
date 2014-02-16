@@ -24,7 +24,7 @@ var id = \x -> x;
 var typeMap = {};
 
 registerNode = \type, ctor -> {
-    typeMap[type] = ctor;
+    typeMap.(type) = ctor;
 };
 
 /* Serialization
@@ -52,11 +52,11 @@ serialize = let
             'loc': locSerializer(node.loc),
             'ud': udSerializer(node.ud),
             'children': reduce(node.children, \(o, childKey) -> {
-                o[childKey] = _serialize(node[childKey], locSerializer, udSerializer);
+                o.(childKey) = _serialize(node.(childKey), locSerializer, udSerializer);
                 return o;
             }, {}),
             'attributes': reduce(node.attributes, \(o, key) -> {
-                o[key] = node[key];
+                o.(key) = node.(key);
                 return o;
             }, {})
         };
@@ -99,14 +99,14 @@ unserialize = let
         var children = reduce(
             keys(data.children),
             \(o, c) -> {
-                o[c] = _unserialize(data.children[c], locUnserializer, udUnserializer);
+                o.(c) = _unserialize(data.children.(c), locUnserializer, udUnserializer);
                 return o;
             }, {});
         
         var attributes = reduce(
             keys(data.attributes),
-            \(o, c) -> {
-                o[c] = data.attributes[c];
+            \o, c -> {
+                o.(c) = data.attributes.(c);
                 return o;
             }, {});
         

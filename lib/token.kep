@@ -28,7 +28,7 @@ Token = function\(loc, value) =self-> {
     Node.call(self, loc);
     self.value = value;
 };
-Token.prototype = new Node;
+Token.prototype = new Node();
 
 /* Instances
  ******************************************************************************/
