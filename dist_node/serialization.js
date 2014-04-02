@@ -1,8 +1,7 @@
 /*
  * THIS FILE IS AUTO GENERATED from 'lib/serialization.kep'
  * DO NOT EDIT
-*/
-"use strict";
+*/"use strict";
 var ecma_node = require("./node"),
     Node = ecma_node["Node"],
     registerNode, serialize, unserialize, keys = Object.keys,
@@ -48,7 +47,7 @@ var _unserialize = (function(data, locUnserializer, udUnserializer) {
     if (Array.isArray(data)) return map(data, (function(x) {
         return _unserialize(x, locUnserializer, udUnserializer);
     }));
-    var ctor = typeMap([data.type]);
+    var ctor = typeMap[data.type];
     if ((!ctor)) return data;
     var loc = locUnserializer(data.loc),
         ud = udUnserializer(data.ud),
@@ -65,6 +64,6 @@ var _unserialize = (function(data, locUnserializer, udUnserializer) {
 (unserialize = (function(data, locSerializer, udSerializer) {
     return _unserialize(data.program, (locSerializer || id), (udSerializer || id));
 }));
-(exports.registerNode = registerNode);
-(exports.serialize = serialize);
-(exports.unserialize = unserialize);
+(exports["registerNode"] = registerNode);
+(exports["serialize"] = serialize);
+(exports["unserialize"] = unserialize);

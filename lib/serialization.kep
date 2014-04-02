@@ -37,7 +37,7 @@ registerNode = \type, ctor -> {
  * @param [udSerializer] Function that serializes user data objects.
  */
 serialize = let
-    _serialize = \(node, locSerializer, udSerializer) -> {
+    _serialize := \(node, locSerializer, udSerializer) -> {
         if (!node)
             return node;
         
@@ -82,7 +82,7 @@ in
  * @param [udSerializer] Function that unserializes user data objects.
  */
 unserialize = let
-    _unserialize = \data, locUnserializer, udUnserializer -> {
+    _unserialize := \data, locUnserializer, udUnserializer -> {
         if (!data)
             return data;
         
