@@ -11,7 +11,8 @@ var __o = require("./serialization"),
         for (var i = 0, len = props.length;
             (i < len);
             (i = (i + 1))) {
-            (out[i] = obj[i]);
+            var k = props[i];
+            (out[k] = obj[k]);
         }
         (out[prop] = value);
         return out;

@@ -1,8 +1,11 @@
 # ChangeLog
 
+## 2.5.1 - April 2, 2014
+* Fixed `setData`.
+
 ## 2.5.0 - April 2, 2014
 * Improved performance of Node modification.
-* Changed node modiciation API to take base nodes instead of requiring prototype.
+* Changed node modification API to take base nodes instead of requiring prototype.
 
 ## 2.4.2 - Feb 16, 2014
 * Fixed `FuncitonDeclaration` not having an `id` child metadata.

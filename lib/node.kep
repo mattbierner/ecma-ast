@@ -25,7 +25,9 @@ var setProperty = \obj, prop, value -> {
     var out = {};
     var props := keys(obj);
     for (var i = 0, len = props.length; i < len; i = i + 1)
-        out.(i) = obj.(i);
+    with k = props.(i) in {
+        out.(k) = obj.(k);
+    }
     out.(prop) = value;
     return out;
 };

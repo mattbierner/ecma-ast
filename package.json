@@ -1,6 +1,6 @@
 {
   "name": "ecma-ast",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "ECMAScript AST Nodes",
   "author": "Matt Bierner",
   "license": "MIT",
