@@ -89,7 +89,7 @@ unserialize = let
         if (Array.isArray(data))
             return map(data, \x -> _unserialize(x, locUnserializer, udUnserializer));
         
-        var ctor = typeMap[data.type];
+        var ctor = typeMap.(data.type);
         if (!ctor)
             return data;
         
