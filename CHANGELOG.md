@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2.6.0 - May 15, 2014
+* Added `file` field to `SourcePosition`.
+
 ## 2.5.1 - April 2, 2014
 * Fixed `setData`.
 
